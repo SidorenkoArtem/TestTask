@@ -33,5 +33,5 @@ dependencies {
 	compile('org.postgresql:postgresql')
 	compile('org.springframework.boot:spring-boot-starter-jooq')
 	//compile('org.flywaydb:flyway-core')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	//testCompile('org.springframework.boot:spring-boot-starter-test')
 }
