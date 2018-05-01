@@ -7,22 +7,42 @@
 </head>
 <body>
 <div>
-    <input placeholder="Tag" id="tag"/>
-    <input placeholder="Message" id="messageId"/>
-    <input placeholder="Ex" id="ex"/>
-    <input type="submit" onclick="sendLogMessages()"></input>
+    <div>
+        <input placeholder="Tag" id="tag"/>
+    </div>
+    <div>
+        <input placeholder="Message" id="messageId"/>
+    </div>
+    <div>
+        <input placeholder="Ex" id="ex"/>
+    </div>
+    <div>
+        <input type="submit" onclick="sendLogMessages()"/>
+    </div>
 </div>
 </body>
 <script>
     function sendLogMessages() {
+        var mas = [];
         var logMessage = {
             tag : $("#tag").val(),
             message : $("#messageId").val(),
-            ex : $("#ex").val()};
+            ex : $("#ex").val()
+        };
+        mas.push(logMessage);
         $.ajax({
             type : "POST",
+            dataType: "text",
+            contentType : "application/json",
             url : "/log-messages/set-log-messages",
-            data : logMessage
+            data : JSON.stringify(mas),
+            success : function(result) {
+                console.log(result);
+            },
+            error : function(e) {
+                alert("Error!");
+                console.log("ERROR: " + e);
+            }
         });
     }
 </script>

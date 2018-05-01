@@ -1,13 +1,10 @@
 package com.example.test.rest;
 
-import com.example.test.model.LogMessage;
 import com.example.test.service.LogMessagesService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.jooq.generated.tables.records.LogRecord;
+import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -27,12 +24,9 @@ public class LogMessagesRestController {
         //todo
     }
 
-    @RequestMapping(value = "/set-log-messages", method = RequestMethod.POST)
-    public void setLogMessages(@RequestParam(name = "tag") String tag, @RequestParam(name = "message") String message,
-                               @RequestParam(name = "ex") String ex) {
-        List<LogMessage> listLogMessages = new ArrayList<>();
-        logMessagesService.saveLogMessagesToDataBase(listLogMessages);
-        //todo
+    @RequestMapping(path = "/set-log-messages", method = RequestMethod.POST)
+    public boolean setLogMessages(@RequestBody LogRecord[] logMessage) {
+        List<LogRecord> logMessagesList = Arrays.asList(logMessage);
+        return logMessagesService.saveLogMessagesToDataBase(logMessagesList);
     }
-
 }

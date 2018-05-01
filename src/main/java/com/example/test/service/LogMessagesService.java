@@ -1,12 +1,11 @@
 package com.example.test.service;
 
-import com.example.test.model.LogMessage;
-
+import org.jooq.generated.tables.records.LogRecord;
 import java.util.List;
 
 public interface LogMessagesService {
 
-    void saveLogMessagesToDataBase(List<LogMessage> listLogMessages);
+    boolean saveLogMessagesToDataBase(List<LogRecord> listLogMessages);
 
     void getFromDataBaseLogMessagesById(List<Integer> listIdLogMessages);
 

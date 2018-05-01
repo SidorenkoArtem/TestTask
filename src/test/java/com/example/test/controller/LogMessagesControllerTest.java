@@ -11,7 +11,7 @@ public class LogMessagesControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        sut = new LogMessagesController();
+        //sut = new LogMessagesController();
     }
 
     @Test

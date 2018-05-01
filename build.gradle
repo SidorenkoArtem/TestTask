@@ -1,11 +1,18 @@
+apply plugin: 'jooq'
 buildscript {
+
 	ext {
+		postgesqlVer = '42.1.4'
 		springBootVersion = '2.0.1.RELEASE'
+
+		versionPluginVer = '0.15.0'
 	}
 	repositories {
 		mavenCentral()
 	}
 	dependencies {
+		classpath("org.postgresql:postgresql:+")
+		classpath "com.github.ben-manes:gradle-jooq-plugin:+"
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 	}
 }
@@ -14,6 +21,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
@@ -30,8 +38,31 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-devtools')
 	compile('org.springframework.boot:spring-boot-starter-freemarker')
-	compile('org.postgresql:postgresql')
-	compile('org.springframework.boot:spring-boot-starter-jooq')
+	//compile('org.postgresql:postgresql')
+	compile "org.postgresql:postgresql:+"
+	//jooqRuntime "org.postgresql:postgresql:+"
+	// https://mvnrepository.com/artifact/postgresql/postgresql
+	//compile group: 'postgresql', name: 'postgresql', version: '9.1-901-1.jdbc4'
+
+	//compile('org.springframework.boot:spring-boot-starter-jooq')
+	compile('org.jooq:jooq:3.2.2')
+	compile('org.jooq:jooq-meta:3.2.2')
 	//compile('org.flywaydb:flyway-core')
 	//testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+jooq {
+	jdbc {
+		url 'jdbc:postgresql://localhost:5432/logData'
+		driver 'org.postgresql.Driver'
+		user 'postgres'
+		password 'Sandefjord123'
+	}
+	generator {
+		database {
+			name 'org.jooq.util.postgres.PostgresDatabase'
+			inputSchema 'public'
+			includes '.*'
+		}
+	}
 }
