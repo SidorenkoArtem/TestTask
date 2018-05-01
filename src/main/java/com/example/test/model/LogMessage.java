@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class LogMessage {
 
     private long id;
+    private long appId;
     private String tag;
     private LocalDate timeStamp;
     private String message;
@@ -13,8 +14,9 @@ public class LogMessage {
     public LogMessage() {
     }
 
-    public LogMessage(long id, String tag, LocalDate timeStamp, String message, String ex) {
+    public LogMessage(long id, long appId, String tag, LocalDate timeStamp, String message, String ex) {
         this.id = id;
+        this.appId = appId;
         this.tag = tag;
         this.timeStamp = timeStamp;
         this.message = message;
@@ -59,6 +61,14 @@ public class LogMessage {
 
     public void setEx(String ex) {
         this.ex = ex;
+    }
+
+    public long getAppId() {
+        return appId;
+    }
+
+    public void setAppId(long appId) {
+        this.appId = appId;
     }
 
     @Override

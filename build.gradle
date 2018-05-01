@@ -33,22 +33,22 @@ repositories {
 
 
 dependencies {
-	//compile('org.springframework.boot:spring-boot-starter-jooq')
 	compile('org.springframework.boot:spring-boot-starter-test')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-devtools')
 	compile('org.springframework.boot:spring-boot-starter-freemarker')
-	//compile('org.postgresql:postgresql')
 	compile "org.postgresql:postgresql:+"
-	//jooqRuntime "org.postgresql:postgresql:+"
-	// https://mvnrepository.com/artifact/postgresql/postgresql
-	//compile group: 'postgresql', name: 'postgresql', version: '9.1-901-1.jdbc4'
-
-	//compile('org.springframework.boot:spring-boot-starter-jooq')
 	compile('org.jooq:jooq:3.2.2')
 	compile('org.jooq:jooq-meta:3.2.2')
-	//compile('org.flywaydb:flyway-core')
-	//testCompile('org.springframework.boot:spring-boot-starter-test')
+// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.5'
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.5'
+// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.5'
+// https://mvnrepository.com/artifact/org.springframework.data/spring-data-commons
+	compile group: 'org.springframework.data', name: 'spring-data-commons', version: '2.0.6.RELEASE'
+
 }
 
 jooq {
