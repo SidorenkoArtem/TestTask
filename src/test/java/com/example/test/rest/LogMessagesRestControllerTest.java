@@ -3,6 +3,7 @@ package com.example.test.rest;
 import com.example.test.model.LogMessage;
 import com.example.test.service.LogMessagesService;
 import com.example.test.service.impl.LogMessagesServiceImpl;
+import org.jooq.generated.tables.records.LogRecord;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,19 +25,20 @@ public class LogMessagesRestControllerTest {
     @InjectMocks
     LogMessagesRestController sut;
 
+    @Resource
+    private List<Integer> integers;
+
     @Test
     public void getLogMessages() throws Exception {
-        //testing
-        //sut.getLogMessages();
         //validate
         //verify(logMessagesService).getFromDataBaseLogMessagesById(new ArrayList<>());
     }
 
     @Test
     public void setLogMessages() throws Exception {
-        //testing
-        //sut.setLogMessages("123", "123", "123");
         //validate
-       // verify(logMessagesService).getFromDataBaseLogMessagesById(new ArrayList<>());
+        //List<Integer> integers = new ArrayList<>();
+        //integers.add(1);
+//        verify(logMessagesService).getFromDataBaseLogMessagesById(integers);
     }
 }

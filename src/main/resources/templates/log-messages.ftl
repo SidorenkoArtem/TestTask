@@ -25,28 +25,37 @@
         <input type="submit" onclick="sendLogMessages()"/>
     </div>
     <div>
+        <input placeholder="AppID через запятую" id="appIdList"/>
         <input type="submit" onclick="getLogMessages()"/>
     </div>
-    <table id="table_id" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>AppId</th>
-                <th>Tag</th>
-                <th>TimeStamp</th>
-                <th>Message</th>
-                <th>Ex</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div id="tableSpace">
+        <table  id="table_id" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>AppId</th>
+                    <th>Tag</th>
+                    <th>TimeStamp</th>
+                    <th>Message</th>
+                    <th>Ex</th>
+                </tr>
+            </thead>
+         <tbody>
         </tbody>
     </table>
+    </div>
 </div>
 </body>
 <script>
     var table;
     $(document).ready( function () {
         table = $('#table_id').DataTable();
+    });
+
+    $("#appIdList").keypress(function(event){
+        event = event || window.event;
+        if (event.charCode && event.charCode!=0 && event.charCode!=44 && (event.charCode < 48 || event.charCode > 57) )
+            return false;
     });
 
     function sendLogMessages() {
@@ -75,10 +84,13 @@
     }
 
     function getLogMessages() {
-        var mas = [];
+        var appIdList = $("#appIdList").val();
+        var masAppId = appIdList.split(",");
+        table.clear();
         $.ajax({
             type : "POST",
             dataType: "json",
+            data : JSON.stringify(masAppId),
             contentType : "application/json",
             url : "/log-messages/get-log-messages",
             success : function(result) {

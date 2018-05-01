@@ -23,9 +23,12 @@ public class LogMessagesRestController {
     }
 
     @RequestMapping(value = "/get-log-messages", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public List<LogMessage> getLogMessages() {
+    public List<LogMessage> getLogMessages(@RequestBody Integer[] masAppId) {
         List<Integer> listIdOfLogMessages = new ArrayList<>();
+        for (Integer i : masAppId) {
+            if (i != null)
+                listIdOfLogMessages.add(i);
+        }
         return logMessagesService.getFromDataBaseLogMessagesById(listIdOfLogMessages);
     }
 

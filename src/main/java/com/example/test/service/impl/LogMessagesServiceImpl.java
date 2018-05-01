@@ -9,13 +9,12 @@ import org.jooq.generated.tables.Log;
 import org.jooq.generated.tables.records.LogRecord;
 import org.jooq.impl.DSL;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -28,9 +27,10 @@ public class LogMessagesServiceImpl implements LogMessagesService {
     public boolean saveLogMessagesToDataBase(List<LogRecord> logMessagesList) {
         try(Connection con = DriverManager.getConnection(connector.getUrl(), connector.getUser(), connector.getPass())) {
             DSLContext dsl = DSL.using(con, SQLDialect.POSTGRES);
+            Date date = new Date(Calendar.getInstance().getTime().getTime());
             for(LogRecord logMessage : logMessagesList) {
-                dsl.insertInto(Log.LOG, Log.LOG.APP_ID, Log.LOG.TAG, Log.LOG.MESSAGE, Log.LOG.EX)
-                        .values(logMessage.getAppId(), logMessage.getTag(), logMessage.getMessage(),
+                dsl.insertInto(Log.LOG, Log.LOG.APP_ID, Log.LOG.TAG, Log.LOG.MESSAGE, Log.LOG.TIMESTAMP, Log.LOG.EX)
+                        .values(logMessage.getAppId(), logMessage.getTag(), logMessage.getMessage(), date,
                                 logMessage.getEx()).execute();
             }
         } catch (Exception e) {
@@ -46,7 +46,7 @@ public class LogMessagesServiceImpl implements LogMessagesService {
         List<LogMessage> logList = null;
         try(Connection con = DriverManager.getConnection(connector.getUrl(), connector.getUser(), connector.getPass())) {
             DSLContext dsl = DSL.using(con, SQLDialect.POSTGRES);
-            logRecordsList = dsl.selectFrom(Log.LOG).fetch();
+            logRecordsList = dsl.selectFrom(Log.LOG).where(Log.LOG.APP_ID.in(listIdLogMessages)).fetch();
             logList = convertQueryResultsToModelObjects(logRecordsList);
         }catch(Exception e) {
             e.printStackTrace();
